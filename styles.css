@@ -1,0 +1,41 @@
+body {
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(26, 26, 65);
+    overflow: hidden;
+}
+
+.container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+main {
+    margin-left: 30%;
+    margin-top: -10%;
+    /* margin-right: 50%; */
+    background-color: transparent;
+}
+
+#imageCanvas {
+    border: 2px dashed darkgray;
+}
+
+#magnifierCanvas {
+    border: 2px solid white;
+    background-color: white;
+    width: 150px;
+    height: 150px;
+}
+
+.active {
+    border: 2px dashed yellow;
+}
+
+.filled {
+    border: 20px solid black;
+}
