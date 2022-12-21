@@ -1,13 +1,15 @@
 const imgCanvas = document.getElementById("imageCanvas");
 let imgContext = imgCanvas.getContext("2d");
 
-IMG_MAX_SIZE = 800;
+IMG_MAX_SIZE = window.innerHeight / 1.8;
+
 imgCanvas.width = IMG_MAX_SIZE;
 imgCanvas.height = IMG_MAX_SIZE;
 
 const magnifierCanvas = document.getElementById("magnifierCanvas");
 const magnifierContext = magnifierCanvas.getContext("2d");
-const cursor = document.getElementById("cursor");
+
+const modalContainer = document.getElementById("modalContainer");
 
 if (imgCanvas) {
   imgCanvas.addEventListener("dragenter", (event) => {
@@ -26,7 +28,11 @@ if (imgCanvas) {
   });
 
   imgCanvas.addEventListener("drop", handleFile);
-  imgCanvas.addEventListener("click", getRGB);
+  imgCanvas.addEventListener("click", (event) => {
+    val = getRGBHex(event);
+    createModal(val.rgb, val.hex);
+  });
+
   imgCanvas.addEventListener("mousemove", magnify);
 }
 
@@ -59,7 +65,6 @@ function handleFile(event) {
     imgCanvas.height = new_H;
 
     imgContext.drawImage(img, 0, 0, new_W, new_H);
-    imgCanvas.style.backgroundColor = "#ffffff";
   };
 }
 
@@ -88,22 +93,50 @@ function magnify(event) {
   imgContext.fillStyle = pattern;
 
   magnifierContext.beginPath();
-  magnifierContext.arc(magnifierContext.width / 2, magnifierContext.height / 2, 4, 0, 2 * Math.PI)
+  magnifierContext.arc(
+    magnifierContext.width / 2,
+    magnifierContext.height / 2,
+    4,
+    0,
+    2 * Math.PI
+  );
   magnifierContext.stroke();
   magnifierContext.fill();
 }
 
 // make method for magnifier to follow the mouse when over the image
 
-function getRGB(event) {
+function createModal(rgbVal, hexVal) {
+  let newModal = document.createElement("div");
+
+  newModal.innerHTML =
+    "<p>RGB: (" + rgbVal + ")     HEX: " + hexVal + "</p>";
+  newModal.id = "colorModal";
+  newModal.style.backgroundColor = hexVal;
+  modalContainer.prepend(newModal);
+}
+
+function getRGBHex(event) {
   const pos = getMousePos(event);
   const data = imgContext.getImageData(pos.x, pos.y, 1, 1).data;
-  console.log(data[0]);
+  r = data[0];
+  g = data[1];
+  b = data[2];
+  rgb = [r, g, b];
+
   return {
-    r: data[0],
-    g: data[1],
-    b: data[2],
+    rgb: rgb,
+    hex: RGBToHex(r, g, b),
   };
+}
+
+function RGBToHex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function componentToHex(value) {
+  const hex = value.toString(16);
+  return hex.length == 1 ? "0" + hex.toUpperCase() : hex.toUpperCase();
 }
 
 function getMousePos(event) {
@@ -120,3 +153,4 @@ function clearContext(context, width, height) {
   context.clearRect(0, 0, width, height);
   context.restore();
 }
+
