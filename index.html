@@ -5,7 +5,10 @@
 </head>
 <body>
     <canvas id="magnifierCanvas"></canvas>
-    <!-- <input type="range" min="1" max="16" value="2" class="slider" id="magnification" orient="vertical"> -->
+    <div id="sliderControl">
+        <input type="range" min="1" max="16" value="2" id="slider" oninput="updateSliderValue()">
+        <div id="sliderValue">x2</div>
+    </div>
     <canvas id="imageCanvas"></canvas>
     <section id="modalContainer"></section>
 

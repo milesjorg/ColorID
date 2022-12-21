@@ -53,6 +53,20 @@ div #colorModal {
     height: 50px;
 }
 
+div #sliderValue {
+    position: fixed;
+    margin-left: 40px;
+    margin-top: 40px;
+    color: white;
+    font-size: 20px;
+}
+
+#slider {
+    margin: 0;
+    width: 100px;
+    transform: rotate(-90deg);
+}
+
 .active {
     border: 2px dashed yellow;
 }

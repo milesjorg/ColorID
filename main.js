@@ -10,6 +10,8 @@ const magnifierCanvas = document.getElementById("magnifierCanvas");
 const magnifierContext = magnifierCanvas.getContext("2d");
 
 const modalContainer = document.getElementById("modalContainer");
+const slider = document.getElementById("slider");
+const sliderValue = document.getElementById("sliderValue");
 
 if (imgCanvas) {
   imgCanvas.addEventListener("dragenter", (event) => {
@@ -71,7 +73,7 @@ function handleFile(event) {
 function magnify(event) {
   const pos = getMousePos(event);
   let size = imgCanvas.width / 4;
-  let magnification = 12;
+  let magnification = slider.value;
   let radius = size / magnification;
 
   magnifierCanvas.width = 2 * size;
@@ -154,3 +156,6 @@ function clearContext(context, width, height) {
   context.restore();
 }
 
+function updateSliderValue() {
+  sliderValue.innerHTML = "x" + slider.value;
+}
