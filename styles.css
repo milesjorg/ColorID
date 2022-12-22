@@ -8,24 +8,32 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-p {
-    margin: 0px;
-    color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    line-height: 50px;
     text-shadow: -1px 1px 2px #000,
     1px 1px 2px #000,
     1px -1px 0 #000,
-    -1px -1px 0 #000;;
+    -1px -1px 0 #000;
+}
+
+p  {
+    margin: 0px;
+    color: white;
+    font-size: 18px;
+    line-height: 50px;
 }
 
 #imageCanvas {
     margin: 10px;
     border: 2px dashed darkgray;
     background-color: transparent;
+}
+
+#imageCanvas.active {
+    border: 2px dashed yellow;
+}
+
+#imageCanvas.filled {
+    border: none;
 }
 
 #magnifierCanvas {
@@ -40,10 +48,11 @@ p {
     border: 2px solid lightgrey;
     border-radius: 5px;
     width: 350px;
-    height: 500px;
+    height: 300px;
     padding: 2px;
     overflow-x: hidden;
     overflow-y:auto;
+    margin: 10px;
 }
 
 div #colorModal {
@@ -56,7 +65,7 @@ div #colorModal {
 div #sliderValue {
     position: fixed;
     margin-left: 40px;
-    margin-top: 40px;
+    margin-top: 45px;
     color: white;
     font-size: 20px;
 }
@@ -67,10 +76,37 @@ div #sliderValue {
     transform: rotate(-90deg);
 }
 
-.active {
-    border: 2px dashed yellow;
+#magnifierContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
-.filled {
-    border: 20px solid black;
+#reticle {
+    width: 5;
+    height: 5;
+    color: white;
+    z-index: 99999;
+    transform: translate(156px, 0px);
 }
+
+#titleArt {
+    border-radius: 40px;
+    position: absolute;
+    top: 10px;
+    font-size: 60px;
+    background-image: linear-gradient(
+        90deg, 
+        #33A4FF, 
+        #F86088
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: none;
+  }

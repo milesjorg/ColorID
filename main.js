@@ -1,7 +1,7 @@
 const imgCanvas = document.getElementById("imageCanvas");
 let imgContext = imgCanvas.getContext("2d");
 
-IMG_MAX_SIZE = window.innerHeight / 1.8;
+IMG_MAX_SIZE = window.innerHeight / 1.4;
 
 imgCanvas.width = IMG_MAX_SIZE;
 imgCanvas.height = IMG_MAX_SIZE;
@@ -13,30 +13,31 @@ const modalContainer = document.getElementById("modalContainer");
 const slider = document.getElementById("slider");
 const sliderValue = document.getElementById("sliderValue");
 
-if (imgCanvas) {
-  imgCanvas.addEventListener("dragenter", (event) => {
-    event.preventDefault();
-    imgCanvas.classList.add("active");
-    imgCanvas.classList.remove("filled");
-  });
+imgCanvas.addEventListener("dragenter", (event) => {
+  event.preventDefault();
+  imgCanvas.classList.remove("filled");
+  imgCanvas.classList.add("active");
+});
 
-  imgCanvas.addEventListener("dragleave", (event) => {
-    event.preventDefault();
-    imgCanvas.classList.remove("active");
-  });
+imgCanvas.addEventListener("dragleave", (event) => {
+  event.preventDefault();
+  imgCanvas.classList.remove("active");
+});
 
-  imgCanvas.addEventListener("dragover", (event) => {
-    event.preventDefault();
-  });
+imgCanvas.addEventListener("dragover", (event) => {
+  event.preventDefault();
+});
 
-  imgCanvas.addEventListener("drop", handleFile);
-  imgCanvas.addEventListener("click", (event) => {
-    val = getRGBHex(event);
-    createModal(val.rgb, val.hex);
-  });
+imgCanvas.addEventListener("drop", handleFile);
+imgCanvas.addEventListener("click", (event) => {
+  val = getRGBHex(event);
+  createModal(val.rgb, val.hex);
+});
 
-  imgCanvas.addEventListener("mousemove", magnify);
-}
+imgCanvas.addEventListener("mousemove", (event) => {
+  magnify(event);
+  imgCanvas.style.cursor = "crosshair";
+});
 
 function handleFile(event) {
   event.preventDefault();
@@ -72,9 +73,9 @@ function handleFile(event) {
 
 function magnify(event) {
   const pos = getMousePos(event);
-  let size = imgCanvas.width / 4;
+  let size = Math.floor(imgCanvas.height / 2);
   let magnification = slider.value;
-  let radius = size / magnification;
+  let radius = Math.floor(size / magnification);
 
   magnifierCanvas.width = 2 * size;
   magnifierCanvas.height = 2 * size;
@@ -111,8 +112,7 @@ function magnify(event) {
 function createModal(rgbVal, hexVal) {
   let newModal = document.createElement("div");
 
-  newModal.innerHTML =
-    "<p>RGB: (" + rgbVal + ")     HEX: " + hexVal + "</p>";
+  newModal.innerHTML = "<p>RGB: (" + rgbVal + ")     HEX: " + hexVal + "</p>";
   newModal.id = "colorModal";
   newModal.style.backgroundColor = hexVal;
   modalContainer.prepend(newModal);

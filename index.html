@@ -4,7 +4,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="magnifierCanvas"></canvas>
+    <h1 id="titleArt">ColorID</h1>
+    <div id="container"></div>
+    <div id="magnifierContainer">
+        <div id="reticle">+</div>
+        <canvas id="magnifierCanvas"></canvas>
+    </div>
     <div id="sliderControl">
         <input type="range" min="1" max="16" value="2" id="slider" oninput="updateSliderValue()">
         <div id="sliderValue">x2</div>
