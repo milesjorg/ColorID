@@ -36,8 +36,8 @@ imgCanvas.addEventListener("drop", (event) => {
   event.preventDefault();
   imgCanvas.classList.remove("active");
   imgCanvas.classList.add("filled");
-  removeGreeting();
   handleFile(event);
+  removeGreeting();
 });
 
 imgCanvas.addEventListener("click", (event) => {
