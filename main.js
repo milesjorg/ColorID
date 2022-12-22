@@ -1,3 +1,5 @@
+const body = document.getElementById("main");
+
 const imgCanvas = document.getElementById("imageCanvas");
 let imgContext = imgCanvas.getContext("2d");
 
@@ -12,6 +14,8 @@ const magnifierContext = magnifierCanvas.getContext("2d");
 const modalContainer = document.getElementById("modalContainer");
 const slider = document.getElementById("slider");
 const sliderValue = document.getElementById("sliderValue");
+
+greet();
 
 imgCanvas.addEventListener("dragenter", (event) => {
   event.preventDefault();
@@ -28,7 +32,14 @@ imgCanvas.addEventListener("dragover", (event) => {
   event.preventDefault();
 });
 
-imgCanvas.addEventListener("drop", handleFile);
+imgCanvas.addEventListener("drop", (event) => {
+  event.preventDefault();
+  imgCanvas.classList.remove("active");
+  imgCanvas.classList.add("filled");
+  removeGreeting();
+  handleFile(event);
+});
+
 imgCanvas.addEventListener("click", (event) => {
   val = getRGBHex(event);
   createModal(val.rgb, val.hex);
@@ -40,10 +51,6 @@ imgCanvas.addEventListener("mousemove", (event) => {
 });
 
 function handleFile(event) {
-  event.preventDefault();
-  imgCanvas.classList.remove("active");
-  imgCanvas.classList.add("filled");
-
   imgCanvas.width = IMG_MAX_SIZE;
   imgCanvas.height = IMG_MAX_SIZE;
 
@@ -158,4 +165,17 @@ function clearContext(context, width, height) {
 
 function updateSliderValue() {
   sliderValue.innerHTML = "x" + slider.value;
+}
+
+function greet() {
+  let greeting = document.createElement("p");
+
+  greeting.innerHTML = "<p>Drag and drop your image here!</p>";
+  greeting.id = "helperText";
+  body.prepend(greeting);
+}
+
+function removeGreeting() {
+  greeting = document.getElementById("helperText");
+  greeting.remove();
 }
