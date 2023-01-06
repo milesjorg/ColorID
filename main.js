@@ -3,7 +3,7 @@ const body = document.getElementById("main");
 const imgCanvas = document.getElementById("imageCanvas");
 let imgContext = imgCanvas.getContext("2d");
 
-IMG_MAX_SIZE = window.innerHeight / 1.4;
+IMG_MAX_SIZE = window.innerWidth / 4;
 
 imgCanvas.width = IMG_MAX_SIZE;
 imgCanvas.height = IMG_MAX_SIZE;
@@ -123,6 +123,10 @@ function createModal(rgbVal, hexVal) {
   newModal.id = "colorModal";
   newModal.style.backgroundColor = hexVal;
   modalContainer.prepend(newModal);
+}
+
+function clearModal() {
+  modalContainer.innerHTML = "";
 }
 
 function getRGBHex(event) {
